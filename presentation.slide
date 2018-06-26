@@ -1,0 +1,754 @@
+GO 🏎️
+
+Fast & Furious
+
+* Quienes Somos
+
+Axel Coronel 👨‍🚒
+Yanina Morales 👩‍🎤
+Sebastian Salvatore 🧔🏻
+
+.html resources/gopher.html
+
+* Temas
+- Que es GO?
+- Cuando usar GO?
+- Configurando GO
+- $GOPATH
+- Generalidades del lenguaje
+- JSON + Marshaling y Unmarshaling
+- Concurrencia
+- Comandos y herramientas
+
+
+* Que es GO(lang)
+
+- Es un lenguaje compilado y fuertemente tipado
+- Tiene una sintaxis muy similar a C.
+- Permite tipos y métodos
+- Posee un estilo de programación "orientado a objetos".
+: luego vamos a entrar mas en detalle sobre esto..
+
+* ¿Cuando usar GO?
+
+- Es un lenguaje orientado a backend/programas de consola
+- NO es mas rápido que C/C++
+- No es mejor que _X_ lenguaje
+- Todo depende de las necesidades del proyecto/problema
+- Recomendado para manejo de hilos
+- Recomendado para optimizar recursos, principalmente memoria
+
+* ¿Como empezar con GO?
+
+1. Descargar e instalar GO (https://golang.org/dl)
+2. Configurar el entorno
+3. Descargar/configurar algun editor de codigo
+
+- Vim + plugin
+- Atom + plugin
+- Visual Studio Code + plugin
+- Sublime Text + plugin
+- GoLand (Pago)
+
+* Enviroment de GO
+
+- *GOROOT*: Donde está instalado GO
+	ej: ~/.gvm/gos/go1.9.1
+
+- *GOPATH*: Donde esta *todo* el código de GO
+	ej: ~/go
+
+* GOPATH
+	├── bin
+	├── pkg
+	|    └── github.com
+	|         └── UNSL
+	|              └── app
+	|                   └── *.a
+	└── src
+	     └── github.com
+	          ├── UNSL
+	          |    ├── app
+	          |    |    └── ...
+	          |    └── app2
+	          |         └── ...
+	          └── gin-gonic
+	               └── ...
+
+- bin: Contiene binarios ejecutables/compilados del codigo que esta en 'src'
+: 'go build' compila y deja el binario en la carpeta del proyecto
+: 'go install' compila y deja el binario en la carpeta bin
+- pkg: Contiene "package objects" (*.a), que se generan cuando se buildean los binarios
+- src: Aca va tu código
+
+: La convencion a usar es <repo><username><proyecto>
+: Un ejemplo seria: *github.com/UNSL/app*
+
+* Dependencias
+
+*Situacion*:
+	Tengo X codigo en un proyecto/programa y lo quiero usar en otro
+
+*Opciones*:
+
+- Crear un plugin/jar ☕
+- Copiar ✂️ y Pegar el codigo/clase/etc
+- "_A_ _lo_ _go_"
+
+* Dependencias
+
+¿Y en GO como hacemos esto?
+
+	Supongamos que en main.go queremos reutilizar algo que este en code.go
+
+$GOPATH:
+
+	src
+	 └── github.com
+			 ├── ...
+	         └── UNSL
+	              ├── app1
+	              |    └── main.go
+	              └── app2
+	                   └── utils
+	                        └── code.go
+
+* Dependencias
+
+En main.go solo necesitamos hacer:
+
+	import "github.com/UNSL/app2/utils"
+
+
+Desde un punto de vista _open_ _source_:
+
+- Con solo publicar tu codigo, cualquiera lo puede usar.. sin esfuerzos
+.html resources/opensource.html
+
+: se puede reutilizar cualquier codigo! desde un punto de vista open source, esto es genial!
+: si el codigo no esta en el $GOPATH es necesario hacer 'go get' de ese paquete antes
+
+* Dependencias
+
+Las dependencias de un proyecto se instalan con:
+
+- go get
+
+: go get: estando parado dentro de nuestro proyecto, descarga todas las dependencias del mismo a $GOPATH/src
+
+- go get github.com/UNSL/app2
+
+: go get xxx: Para bajar una app/repo/lib/etc dentro de $GOPATH/src
+
+Finalmente, en su codigo hacen el import al paquete que necesitan
+
+* Dependencias
+
+Es muy importante respetar el nombre/ruta dentro del $GOPATH,
+
+- La ruta a un paquete/codigo sirve como identificador univoco al mismo
+- Sirve para centralizar el codigo
+- Tiene que ser igual a la ruta _http_ para descargar el mismo
+
+* Dependencias
+
+No esta libre de problemas:
+
+- Trae problemas para versionar el codigo
+- Go soporta "vendoring"
+
+* Vendoring
+
+- Es como tener una foto del codigo de las dependencias en el GOPATH dentro del proyecto.
+- Primero se busca una dependencia en la carpeta vendor, luego en el GOPATH.
+- Si se actualiza una version de una dependencia en el GOPATH, no rompe el codigo de mi proyecto
+- Herramientas para vendoring: govendor, dep, etc
+
+* Generalidades del lenguaje
+
+- Posee garbage collector
+: garbage collector: si bien es un lenguaje compilado, tiene garbage collector
+- Las funciones se pueden pasar como valores
+: fn: a lo javascript
+- GO no tiene herencia
+: no clases: La jerarquía de tipos es plana
+- Se pueden definir tipos nuevos:
+	type oracion string
+: tipos nuevos: los tipos custom se pueden castear al tipo 'base'
+- Structs para reflejar datos complejos:
+	type Persona struct { ... }
+- Cada archivo puede tener una funcion 'init' que se ejecuta al cargar el mismo
+: init: Se usa para inicializar cosas
+- Imports ciclicos son un error de compilacion
+- Variables, imports, etc _sin_ _usar_ son un error de compilacion
+: Muchas cosas son un error de compilacion -> muy recomendado usar una IDE!
+
+* Declaracion
+- Declaracion de variables: el tipo va a la derecha
+    - var z int
+    - var a, b, c int
+    - x int // parametros
+: simil a pascal
+
+El compilador puede inferir el tipo de una variable
+
+	- var b = 5  // valido en el scope general, fuera de func
+	- a := 5 // valido solo dentro del scope de una func
+
+: asignacion multiple, muy usando en funciones para el manejo de errores
+
+Declaracion multiple/multi-linea:
+
+	var (
+		a, b int
+		c string
+		d = 5
+		...
+	)
+
+: el compilador infiere el tipo del valor de la derecha
+
+* Declaraciones
+.play code/declarations1.go
+: new devuelve punteros.
+: make devuelve valores distinto de cero.
+: El run va a devolver errores, mencionar de nuevo la importancia de las IDEs
+
+* Declaraciones
+.play code/declarations2.go
+
+* Ambitos/alcance de variables y funciones
+
+- No existe un public/private/protect/etc como en Java
+- La primera letra de un nombre define la visibilidad/alcance
+- *UnNombre* se exporta fuera del paquete
+- *otroNombre* queda privado al paquete
+
+* Paquetes
+
+.image images/package_tree.png
+
+: Cada carpeta es un paquete y no importa como se llamen los archivos, el codigo se considera que esta "junto"
+: Muy diferente a java esto por ej
+: La unica salvedad son los archivos *_test.go que su codigo no es visible para el resto
+
+* Imports
+
+- 2 tipos de imports/rutas: cortos y largos
+- Los cortos estan reservados para paquetes del runtime de GO:
+	fmt, strings, time, encoding/json, etc
+- Los largos se usan para nuestro codigo y otras librerias:
+	"github.com/newrelic/go-agent/_integrations/nrgin/v1"
+- Se pueden renombrar para evitar colisiones
+
+	import goerrors "errors"
+	import "github.com/UNSL/app/errors"
+
+* Imports
+
+.code code/services/scopes.go
+.code code/controllers/scopes.go
+: La idea aca es explicar que otherVar no es visible fuera del paquete
+: si se define una variable "service" en el codigo, el import queda opacado
+
+* Paquetes + Imports
+	
+	app
+	└──services
+			├── apis
+			│   ├── payments.go
+			│   ├── orders.go
+			│   ├── shipments.go
+			│   └── users.go
+			├── cache
+			│   └── memcached.go
+			└── database
+				└── db.go
+		
+
+.code code/packages.go
+
+: La idea es explicar que los nombres de los paquetes sean semanticos
+: De alguna forma el nombre del paquete se convierte en una variable y lo que se exporta en los metodos
+
+* Tipos
+- Cada tipo tiene un valor por defecto (zero value)
+	- bool: false
+	- int: 0
+	- float: 0.0
+	- string: ""
+	- punteros, funciones, interfaces, slices, channels y maps: nil
+- Un _mapa_ _nulo_ se comporta como un mapa vacio *cuando* *se* *lee* *de* *el*, pero si se intenta escribir en el va a resultar en un *runtime* *panic*
+- Array vs Slice
+	Un array tiene un tamaño fijo: var a [3]int
+	Un slice, crece de forma dinamica: var a[]int
+- Al no haber clases, se pueden definir tipos nuevos a los cuales se les pueden agregar metodos:
+	type <nombre tipo> (tipo base | struct)
+: Solo se pueden definir metodos a tipos definidos dentro su proyecto
+
+* Interface{}
+
+- Se conoce como "interfaz vacia" y puede contener cualquier valor
+- `Interface{}` no es el equivalente a "object" en java
+- Para acceder al valor que contine es necesario hacer un _type_ _assertion_
+: type assertion: es como preguntar si se puede hacer el cast a ese tipo
+- Es mas lento que usar un valor tipado
+
+	var a interface{} // creo el interface{}
+	a = 5 // le doy un valor
+
+forma _segura_:
+
+: si a no es de tipo int, ok == false
+	num, ok := a.(int)
+	if(!ok) { ... }
+
+forma _insegura_:
+
+: produce un panic si a no es de tipo int
+	num := a.(int)
+	...
+
+
+* Asignaciónes
+
+GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son diferentes y aplican a tipos diferentes.
+
+- make: aplica solo a slices, maps y channels
+- new: a cualquier tipo, menos ☝️
+
+* Asignaciónes con new
+
+	new(T) devuelve un *T inicializado con su correspondiente "zero value"
+
+.play -edit code/declaracion/ejemplo_new.go
+
+* Asignación con make
+
+	make(T, args) devuelve un valor de tipo T (no *T) ya inicializado.
+
+.play -edit code/declaracion/ejemplo_make.go
+
+* Funciones
+: muy similar a cualquier otro lenguaje
+- Utilizamos la palabra reservada *func* para definir la función llamada funcName.
+- Las funciones pueden devolver _múltiples_ valores.
+- Se pueden omitir los nombre y utilizar unicamente los tipos.
+
+    func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
+        // cuerpo de la función
+        // retorna múltiples valores
+        return value1, value2
+    }
+
+* Asignacion/Retorno multivaluado
+- GO soporta retornar/asignar multiples valores.
+- Se utiliza a menudo para por ejemplo, devolver uno o varios resultados y si se produjo un error dentro de una funcion
+- Tambien sirve para inicializar multiples variables
+.play -edit code/declaracion/multivaluado.go
+: por convencion un error se retorna al final
+: explicar patron if e != nil { ... }
+
+* Blank Identifier ( _ )
+- El identificador en blanco se puede asignar o declarar con cualquier valor.
+- Se usa mucho en el contexto de los bucles, para ignorar un error/valor o para forzar un import
+: Una variable no utilizada es un error de compilacion, por lo que es necesario ignorarla con _ sino la vamos a usar
+- Representa un valor de solo escritura para usar como marcador de posición donde se necesita una variable, pero el valor real es irrelevante.
+
+.play -edit code/declaracion/blank_identifier.go
+
+* Punteros
+
+- Simil a C/C++, pero sin utilizar el "->" 😄
+
+: Un puntero es una variable que, apunta a algo, es decir, es una variable que almacena la dirección de memoria de otra variable.
+: Toda variable en ejecución se encuentra almacenada en un espacio de memoria y, a su vez, cada espacio de memoria tiene asignada una dirección; por ende, cada variable tiene asignada una dirección en memoria.
+
+.play -edit code/punteros.go
+
+* Defer
+Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el final de la función.
+
+- Evita la repetición del código
+- Ayuda a la legibilidad del código	
+
+    func ReadWrite() bool {
+        file.Open("file")
+        // realizamos alguna tarea
+        if failureX {
+            file.Close()
+            return false
+        }
+        if failureY {
+            file.Close()
+            return false
+        }
+        file.Close()
+        return true
+    }
+
+* Uso del Defer
+    func ReadWrite() bool {
+        file.Open("file")
+        defer file.Close()
+        if failureX {
+            return false
+        }
+        if failureY {
+            return false
+        }
+        return true
+    }
+
+
+.play code/defer.go
+
+* Structs
+Nuevos tipos de contenedores con otras propiedades o campos.
+Asignando un valor inicial en forma ordenada
+
+  P := persona{"Yani", 28}
+Usando el formato campo:valor para inicializarlo sin orden
+
+  P := persona{edad:31, nombre:"Axel"}
+Definimos una struct anónima, y la inicializamos
+
+  P := struct{nombre string; edad int}{"Seba",25}
+
+* Structs
+.play code/structs.go
+
+* Structs embebidos
+Son campos sin nombre pero si con tipo. Hace una "reutilizacion" de los campos
+
+    type Persona struct {
+        nombre string
+        edad int
+        peso int
+    }
+    type Estudiante struct {
+        Persona  // El struct Estudiante va a incluir los campos que tiene Persona.
+        carrera string
+    }
+    func main() {
+        // inicializamos a Estudiante
+        e := Estudiante{Persona{"Jose", 25, 85}, "Lic. en Cs. de la Computacion"}
+        // campos accesibles
+        fmt.Println("Su nombre es ", e.nombre)
+    }
+
+* Struct Tags
+
+- Sirven para agregar metadata a un struct
+- Muy usado para validaciones, serializar JSON o datos a una DB
+
+.play code/tags1.go
+
++Info: [[https://golang.org/pkg/reflect/#StructTag][https://golang.org/pkg/reflect/#StructTag]]
+
+: No hay mucho para decir aca, solo que es algo que se puede programar y puede usarse para cablear validaciones, restricciones, etc
+
+* ¿Es GO un lenguaje orientado a objetos?
+- *NO*
+- No existe una jerarquía de objetos, por lo tanto, no existe la herencia.
+Pero...
+
+- GO tiene tipos y métodos
+- Se puede embeber tipos dentro de otros tipos (como las subclases)
+- Se pueden definir metodos para cualquier tipo de datos _definido_ _localmente_
+
+* Y entonces.. como se usan los métodos?
+La función y el struct son dos cosas independientes.
+¿Cómo usamos las funciones como campo de un struct?
+
+    package main
+    import "fmt"
+    type Rectangulo struct {
+        alto, ancho float64
+    }
+
+    func area(r Rectangulo) float64 {
+        return r.alto*r.ancho
+    }
+
+    func main() {
+        r1 := Rectangulo{12, 2}
+        r2 := Rectangulo{9, 4}
+        fmt.Println("El área de r1 es: ", area(r1))
+        fmt.Println("El área de r2 is: ", area(r2))
+    }
+
+* Metodos y Receptores
+- Los métodos están relacionados a un tipo.
+- Tienen la misma sintaxis que una función pero se le añade un  *receptor* (receiver) que es el cuerpo principal de ese método.
+- "Un método es una función con un primer argumento implícito, llamado receiver."
+
+	type Rectangulo struct { ... }
+
+	func (r Rectangulo) area() float64 {
+		....
+	}
+
+: Dicho mal y pronto, lo que estamos definiendo aca es una funcion para un unico tipo
+
+	...
+	r1 := Rectangulo{}
+	r1.area()
+	...
+
+* Duck typing
+
+(En realidad "structural typing" por que es compilado 😝)
+
+"Si camina como un pato, nada como un pato y suena como un pato.. debe ser un pato!"
+.image images/duck.png
+
+* Interfaces
+
+.play code/interfaces.go
+
+: Es comun tener interfaces de un solo metodo, ej: io.Writer o io.Reader
+: Cualquier cosa que ya sepa interactuaar con un writer va a poder hacer de forma transparante con un tipo propio
+
+* Interfaz database/sql
+
+Es un estandar que permite crear orm de base de datos a traves de ella, permitiendo cambiar entre diferentes motores de bases de datos.
+
+- sql.Register : Sirve para regristrar una base de datos.
+
+	//manejador https://github.com/mattn/go-sqlite3
+	import (
+		"database/sql"
+		_ "github.com/mattn/go-sqlite3"
+	)
+	func init() {
+		sql.Register("sqlite3", &SQLiteDriver{})
+	}
+
+* Concurrencia: gorutinas y channels
+
+- En GO no hay threads, hay _gorutinas_: *GO* *<func>*
+- Lo diferente es el como se pueden compartir datos entre gorutinas
+- Para compatir datos se usan _channels_
+
+* Concurrencia
+
+.play -edit code/concurrency_1.go
+
+* Concurrencia
+
+.play -edit code/concurrency_2.go
+
+* Channels
+- var c chan int
+: Por defecto un channel es nil, hace falta un make!
+- c := make(chan int[,cantidad])
+: sino especificamos una cantidad, tiene tamaño 1
+: cuando se llena y otro quiere publicar se bloquea hasta que se haga lugar
+- Los channels tienen "direcciones"
+: Es decir, que se puede especificar si se pueden meter/sacar datos de un canal
+: Sirve para reforzar el uso que se le va a dar al canal, se usa en
+- Entrada + Salida:
+	Declaracion: c chan int | Uso: d := <-c o c <- d
+- Entrada:
+	Declaracion: c chan<- int | Uso: c <- d
+- Salida:
+	Declaracion: c <-chan int | Uso: d := <-c
+
+* Concurrencia + Channels
+
+.play code/channels1.go /START OMIT/,/END OMIT/
+: patron worker
+
+* Concurrencia + Channels + select
+
+.play -edit code/select.go /START OMIT/,/END OMIT/
+: que pasa si al worker le paso mas de un chan y depdendiendo de a cual le llega un dato algo algo?
+: en el ejemplo hay un unico case, pero podria haber mas cases escuchando mas channels
+
+* Concurrencia: errores comunes
+
+.play -edit code/concurrency_3.go
+
+: Un error muy comun es usar una gorutina y un valor de un closure
+: Editar esto en la otra pantalla
+: 1. i := i
+: 2. go func(p int) {
+: 	fmt.Println("closure", i, "param", p)
+: }(i)
+: }
+
+* Concurrencia: patrones
+
+- Timers
+: Timers: diferir una acccion en el tiempo
+- Pipeline
+: Simil a promises, hacer que una funcion retorne un channel, dentro una gorutina resuelve algo y retorna el resultado en el channel
+- Fan-in
+: Multiples productores publican datos en un channel, un solo consumidr opera sobre esos datos
+- Fan-out
+: Un unico productor, multiples consumidores (workers)
+
+// TODO: agregar link a patrones
+
+* Comandos 🔨 y herramientas ⚙️
+$go run
+$go build
+$go install
+$go get github.com/...
+$go doc
+$go tool pprof
+
+govendor
+
+	$ go get -u github.com/kardianos/govendor
+	$ govendor init
+	$ govendor add +external
+	$ govendor list
+
+dep
+
+	$ go get -u github.com/golang/dep/cmd/dep
+	$ dep init
+	$ dep ensure
+	$ dep list
+
+* Profiling (pprof)
+Nos ayuda a monitorear por medio de perfiles nuestra aplicación.
+Se ecuentra en el paquete runtime de go
+
+   import "runtime/pprof"
+
+Para usarlo tenemos que agregarlo en la funcion que queremos monitorear.
+
+	func myFunc(){
+		...
+		pprof.StartCPUProfile(os.Stdout)
+		defer pprof.StopCPUProfile()
+		...
+	}
+Esta forma tambien seria valida
+
+	func myFunc(){
+		pprof.StartCPUProfile(os.Stdout)
+		...
+		pprof.StopCPUProfile()
+	}
+
+
+* Profiling (pprof)
+En este caso monitorearemos la funcion validar del main
+
+.play code/profiling.go /START OMIT/,/END OMIT/
+
+* Profiling (pprof)
+Primero tenemos que ejecutar la aplicacion, por lo cual primero creare un binario con el nombre "perfil"
+
+	$ go build -o perfil
+
+Luego ejecutare el binario con el comando time para determinar la duración de ejecución y el resultado lo guardo en el archivo "cpu.prof"
+
+	$ time ./perfil > cpu.prof
+
+.image images/profiling/profiling1.png
+
+	$ go tool pprof perfil cpu.prof
+
+.image images/profiling/profiling2.png
+
+
+Para nuestros fines de mejorar los tiempos de nuestro programa, usaremos:
+
+- top -cum para ver el acumulativo.
+- list <func> para ver donde es que esta demorando.
+- web para poder velor graficamente en nuestro navegador.
+
+* Profiling top -cum
+
+	(pprof) top -cum
+
+.image images/profiling/profiling3.png
+
+
+* Profiling top -cum
+
+	(pprof) top -cum
+
+.image images/profiling/profiling4.png
+
+Podemos ver que la funcion main.validar demorando 13.56s asi es esa es la funcion
+que analizaremos con list <func>
+
+
+* Profiling list <func>
+
+	(pprof) list main.validar
+
+.image images/profiling/profiling5.png
+
+* Profiling list main.validar
+
+.image images/profiling/profiling6.png
+
+Podemos ver que la liena 27, compilar la expresion regular se demora 5.87s
+No es necesario que se ejecute en cada iteracion asi que sacarla afuera del for para que
+compile una vez y luego se use en cada iteracion.
+
+	func validar() {
+		validEmail := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,5}$`)
+		for _, value := range Datos {
+			value.Email = strings.ToLower(value.Email)
+			if !validEmail.MatchString(value.Email) {
+				log.Panicf("No es valido %v", value.Email)
+			}
+		}
+	}
+
+
+* Profiling
+
+De entrada podemos ver una mejora significativa de tiempo
+
+29.15s a 5.56s
+
+- Antes
+
+.image images/profiling/profiling1.png 70 800
+
+- Despues
+
+.image images/profiling/profiling7.png 70 800
+
+
+* Profiling
+- Antes
+
+.image images/profiling/profiling6.png 180 800
+
+- Despues
+
+.image images/profiling/profiling8.png 180 800
+
+* Profiling web
+
+.image images/profiling/pprof011.svg 600 800
+
+* Profiling web
+
+.image images/profiling/profiling9.png 600 800
+
+
+* Comandos y herramientas url
+- [[https://godoc.org/golang.org/x/tools/cmd/goimports]]
+- [[https://github.com/golang/dep]]
+- [[https://github.com/kardianos/govendor]]
+- [[https://golang.org/pkg/runtime/pprof]]
+
+* Recursos para aprender
+
+Hay muchos! pero para empezar 2 muy buenos y completos son:
+
+- [[https://gobyexample.com][https://gobyexample.com]]
+- [[https://tour.golang.org][https://tour.golang.org]]
+
+* ¿Preguntas?
