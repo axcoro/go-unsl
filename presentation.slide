@@ -12,14 +12,10 @@ Sebastian Salvatore 🧔🏻
 
 * Temas
 - Que es GO?
-- Cuando usar GO?
-- Configurando GO
-- $GOPATH
+- Algunos conceptos de GO
 - Generalidades del lenguaje
-- JSON + Marshaling y Unmarshaling
 - Concurrencia
 - Comandos y herramientas
-
 
 * Que es GO(lang)
 
@@ -183,7 +179,7 @@ No esta libre de problemas:
 - Variables, imports, etc _sin_ _usar_ son un error de compilacion
 : Muchas cosas son un error de compilacion -> muy recomendado usar una IDE!
 
-* Declaracion
+* Declaraciones
 - Declaracion de variables: el tipo va a la derecha
     - var z int
     - var a, b, c int
