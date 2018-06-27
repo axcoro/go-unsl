@@ -419,6 +419,13 @@ Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el
 
 * Structs 🏢
 Nuevos tipos de contenedores con otras propiedades o campos.
+	
+    type persona struct {
+        nombre string
+        edad int
+        peso int
+    }
+
 Asignando un valor inicial en forma ordenada
 
   P := persona{"Yani", 28}
@@ -427,7 +434,7 @@ Usando el formato campo:valor para inicializarlo sin orden
   P := persona{edad:31, nombre:"Axel"}
 Definimos una struct anónima, y la inicializamos
 
-  P := struct{nombre string; edad int}{"Seba",25}
+  Q := struct{nombre string; edad int}{"Seba",25}
 
 * Structs 🏢
 .play code/structs.go
@@ -464,13 +471,14 @@ Definimos una struct anónima, y la inicializamos
 : No hay mucho para decir aca, solo que es algo que se puede programar y puede usarse para cablear validaciones, restricciones, etc
 
 * ¿Es GO un lenguaje orientado a objetos?
-- *NO*
+- *NO* 😱
 - No existe una jerarquía de objetos, por lo tanto, no existe la herencia.
 Pero...
 
-- GO tiene tipos y métodos
+- Podemos crear estructuras 
 - Se puede embeber tipos dentro de otros tipos (como las subclases)
-- Se pueden definir metodos para cualquier tipo de datos _definido_ _localmente_
+- GO tiene tipos y métodos
+- Se pueden definir estos metodos para cualquier tipo de datos _definido_ _localmente_
 
 * Y entonces.. como se usan los métodos?
 La función y el struct son dos cosas independientes.
