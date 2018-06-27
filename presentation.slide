@@ -255,7 +255,7 @@ Declaracion multiple/multi-linea:
 : si se define una variable "service" en el codigo, el import queda opacado
 
 * Paquetes + Imports
-	
+
 	app
 	└──services
 			├── apis
@@ -267,7 +267,7 @@ Declaracion multiple/multi-linea:
 			│   └── memcached.go
 			└── database
 				└── db.go
-		
+
 
 .code code/packages.go
 
@@ -341,6 +341,12 @@ GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son difere
     func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
         // cuerpo de la función
         // retorna múltiples valores
+        return output1, output2
+    }
+
+    func funcName(input1 type1, input2 type2) (type1, type2) {
+        // cuerpo de la función
+        // retorna múltiples valores
         return value1, value2
     }
 
@@ -356,7 +362,7 @@ GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son difere
 - El identificador en blanco se puede asignar o declarar con cualquier valor.
 - Se usa mucho en el contexto de los bucles, para ignorar un error/valor o para forzar un import
 : Una variable no utilizada es un error de compilacion, por lo que es necesario ignorarla con _ sino la vamos a usar
-- Representa un valor de solo escritura para usar como marcador de posición donde se necesita una variable, pero el valor real es irrelevante.
+- Es un valor de escritura.Es irrelevante el valor que se asigna porque se descarta
 
 .play -edit code/declaracion/blank_identifier.go
 
@@ -373,7 +379,7 @@ GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son difere
 Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el final de la función.
 
 - Evita la repetición del código
-- Ayuda a la legibilidad del código	
+- Ayuda a la legibilidad del código
 
     func ReadWrite() bool {
         file.Open("file")
@@ -596,7 +602,7 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 
 * Comandos 🔨 y herramientas ⚙️
 $go run
-$go build
+$go build (GOOS=windows/linux go build)
 $go install
 $go get github.com/...
 $go doc
