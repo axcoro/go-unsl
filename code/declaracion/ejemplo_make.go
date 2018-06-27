@@ -4,14 +4,14 @@ import "fmt"
 
 func main() {
 	intList := make([]int, 3)
-	fmt.Println(intList)
+	fmt.Println("[]int: ", intList)
 
 	pointerList := make([]*string, 3)
-	fmt.Println(pointerList)
+	fmt.Println("[]*string: ",pointerList)
 
-	stringChanle := make(chan []string, 0)
-	fmt.Println(stringChanle)
+	stringChanel := make(chan []string, 0)
+	fmt.Println("chan []string: ", stringChanel)
 
 	stringMap := make(map[string]string, 0)
-	fmt.Println(stringMap)
+	fmt.Println("map[string]string: ", stringMap)
 }
