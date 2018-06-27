@@ -16,6 +16,7 @@ Sebastian Salvatore 🧔🏻
 - Generalidades del lenguaje
 - Concurrencia
 - Comandos y herramientas
+: muy por arriba estos son los temas
 
 * Que es GO(lang)
 
@@ -23,7 +24,8 @@ Sebastian Salvatore 🧔🏻
 - Tiene una sintaxis muy similar a C.
 - Permite tipos y métodos
 - Posee un estilo de programación "orientado a objetos".
-: luego vamos a entrar mas en detalle sobre esto..
+: "orientado a objetos": que se puede hacer <type>.metodo(...)
+: luego vamos a entrar mas en detalle sobre todo esto..
 
 * ¿Cuando usar GO?
 
@@ -31,7 +33,7 @@ Sebastian Salvatore 🧔🏻
 - NO es mas rápido que C/C++
 - No es mejor que _X_ lenguaje
 - Todo depende de las necesidades del proyecto/problema
-- Recomendado para manejo de hilos
+- Recomendado para concurrencia/paralelismo
 - Recomendado para optimizar recursos, principalmente memoria
 
 * ¿Como empezar con GO?
@@ -45,6 +47,7 @@ Sebastian Salvatore 🧔🏻
 - Visual Studio Code + plugin
 - Sublime Text + plugin
 - GoLand (Pago)
+: recomentado: Visual Studio Code por que es gratis y se necestia muy poca configuracion para usarlo con GO
 
 * Enviroment de GO
 
