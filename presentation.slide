@@ -22,7 +22,7 @@ Sebastian Salvatore 🧔🏻
 - Comandos y herramientas
 : muy por arriba estos son los temas
 
-* Que es GO(lang)
+* ¿Que es GO(lang)?
 
 - Es un lenguaje compilado y fuertemente tipado
 - Tiene una sintaxis muy similar a C.
@@ -58,10 +58,10 @@ Sebastian Salvatore 🧔🏻
 - *GOROOT*: Donde está instalado GO
 	ej: ~/.gvm/gos/go1.9.1
 
-- *GOPATH*: Donde esta *todo* el código de GO
+- *GOPATH*: Donde esta *todo* el código de los proyectos/dependencias escritos en GO
 	ej: ~/go
 
-* GOPATH
+* GOPATH 🛣️
 	├── bin
 	├── pkg
 	|    └── github.com
@@ -87,7 +87,7 @@ Sebastian Salvatore 🧔🏻
 : La convencion a usar es <repo><username><proyecto>
 : Un ejemplo seria: *github.com/UNSL/app*
 
-* Dependencias
+* Dependencias ⛓️
 
 *Situacion*:
 	Tengo X codigo en un proyecto/programa y lo quiero usar en otro
@@ -98,7 +98,7 @@ Sebastian Salvatore 🧔🏻
 - Cortar ✂️ y Pegar  el codigo/clase/etc
 - "_A_ _lo_ _go_"
 
-* Dependencias
+* Dependencias ⛓️
 
 ¿Y en GO como hacemos esto?
 
@@ -116,7 +116,7 @@ $GOPATH:
 	                   └── utils
 	                        └── code.go
 
-* Dependencias
+* Dependencias ⛓️
 
 En main.go solo necesitamos hacer:
 
@@ -131,7 +131,7 @@ Desde un punto de vista _open_ _source_:
 : se puede reutilizar cualquier codigo! desde un punto de vista open source, esto es genial!
 : si el codigo no esta en el $GOPATH es necesario hacer 'go get' de ese paquete antes
 
-* Dependencias
+* Dependencias ⛓️
 
 Las dependencias de un proyecto se instalan con:
 
@@ -145,7 +145,7 @@ Las dependencias de un proyecto se instalan con:
 
 Finalmente, en su codigo hacen el import al paquete que necesitan
 
-* Dependencias
+* Dependencias ⛓️
 
 Es muy importante respetar el nombre/ruta dentro del $GOPATH,
 
@@ -153,7 +153,7 @@ Es muy importante respetar el nombre/ruta dentro del $GOPATH,
 - Sirve para centralizar el codigo
 - Tiene que ser igual a la ruta _http_ para descargar el mismo
 
-* Dependencias
+* Dependencias ⛓️
 
 No esta libre de problemas 👊
 
@@ -164,7 +164,7 @@ No esta libre de problemas 👊
 
 Solucion 👉 "vendoring"
 
-* Vendoring
+* Vendoring 📦
 
 : similar al node_modules de node.js
 - Es como tener una foto 📸 del codigo de las dependencias en el GOPATH dentro del proyecto.
@@ -172,7 +172,7 @@ Solucion 👉 "vendoring"
 - Si se actualiza una version de una dependencia en el GOPATH, no rompe el codigo de mi proyecto
 - Herramientas para vendoring: govendor, dep, etc
 
-* Generalidades del lenguaje
+* Generalidades del lenguaje 👅
 
 - Posee garbage collector
 : garbage collector: si bien es un lenguaje compilado, tiene garbage collector
@@ -227,14 +227,14 @@ Declaracion multiple/multi-linea:
 
 * Ambitos/alcance de variables y funciones
 
-- No existe un public/private/protect/etc como en Java
+- No existe un public/private/protect/etc como en Java/C#/etc
 - La primera letra de un nombre define la visibilidad/alcance
 - *UnNombre* se exporta fuera del paquete
 - *otroNombre* queda privado al paquete
 
 * Paquetes
 
-.image images/package_tree.png
+.image images/package_tree.png 550 370
 
 : Cada carpeta es un paquete y no importa como se llamen los archivos, el codigo se considera que esta "junto"
 : Muy diferente a java esto por ej
