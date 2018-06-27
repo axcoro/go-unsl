@@ -2,13 +2,17 @@ GO 🏎️
 
 Fast & Furious
 
-* Quienes Somos
+* Quienes Somos 🤝
 
 Axel Coronel 👨‍🚒
 Yanina Morales 👩‍🎤
 Sebastian Salvatore 🧔🏻
 
 .html resources/gopher.html
+
+* Quienes Somos
+
+.image images/expertos.png
 
 * Temas
 - Que es GO?
@@ -588,7 +592,7 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 - Fan-out
 : Un unico productor, multiples consumidores (workers)
 
-// TODO: agregar link a patrones
++Info: [[http://divan.github.io/posts/go_concurrency_visualize/]]
 
 * Comandos 🔨 y herramientas ⚙️
 $go run
