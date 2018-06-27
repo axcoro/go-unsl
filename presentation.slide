@@ -12,7 +12,7 @@ Sebastian Salvatore 🧔🏻
 
 * Quienes Somos
 
-.image images/expertos.png
+.image images/expertos2.png
 
 * Temas
 - Que es GO?
@@ -42,7 +42,7 @@ Sebastian Salvatore 🧔🏻
 
 * ¿Como empezar con GO?
 
-1. Descargar e instalar GO (https://golang.org/dl)
+1. Descargar e instalar GO: [[https://golang.org/dl]]
 2. Configurar el entorno ($GOPATH, $GOROOT)
 3. Descargar/configurar algun editor de codigo (IDE)
 
@@ -95,7 +95,7 @@ Sebastian Salvatore 🧔🏻
 *Opciones*:
 
 - Crear un plugin/jar ☕
-- Copiar ✂️ y Pegar el codigo/clase/etc
+- Cortar ✂️ y Pegar  el codigo/clase/etc
 - "_A_ _lo_ _go_"
 
 * Dependencias
