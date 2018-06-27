@@ -33,14 +33,14 @@ Sebastian Salvatore 🧔🏻
 - NO es mas rápido que C/C++
 - No es mejor que _X_ lenguaje
 - Todo depende de las necesidades del proyecto/problema
-- Recomendado para concurrencia/paralelismo
+- Es muy bueno para todo lo que es concurrencia y paralelismo
 - Recomendado para optimizar recursos, principalmente memoria
 
 * ¿Como empezar con GO?
 
 1. Descargar e instalar GO (https://golang.org/dl)
-2. Configurar el entorno
-3. Descargar/configurar algun editor de codigo
+2. Configurar el entorno ($GOPATH, $GOROOT)
+3. Descargar/configurar algun editor de codigo (IDE)
 
 - Vim + plugin
 - Atom + plugin
