@@ -479,7 +479,7 @@ Pero...
 - Podemos crear estructuras 
 - Se puede embeber tipos dentro de otros tipos (como las subclases)
 - GO tiene tipos y métodos
-- Se pueden definir estos metodos para cualquier tipo de datos _definido_ _localmente_
+- Se pueden definir metodos para cualquier tipo de datos _definido_ _localmente_
 
 * Y entonces.. como se usan los métodos?
 La función y el struct son dos cosas independientes.
@@ -551,7 +551,7 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 
 * Concurrencia: gorutinas y channels
 
-- En GO no hay threads, hay _gorutinas_: *GO* *<func>*
+- En GO no hay threads, hay _gorutinas_: *go* *<func>*
 - Lo diferente es el como se pueden compartir datos entre gorutinas
 - Para compatir datos se usan _channels_
 
