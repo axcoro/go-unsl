@@ -5,7 +5,7 @@ var (
 	otroNombre = 2
 )
 
-func main() {
+func algunaFuncion() {
 	UnNombre = 3  // OK
 	otroNombre = 3 // OK
 }

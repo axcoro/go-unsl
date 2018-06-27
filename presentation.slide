@@ -257,8 +257,8 @@ Declaracion multiple/multi-linea:
 
 .code code/services/scopes.go
 .code code/controllers/scopes.go
-: La idea aca es explicar que otherVar no es visible fuera del paquete
-: si se define una variable "service" en el codigo, el import queda opacado
+: La idea aca es explicar que otroNombre no es visible fuera del paquete
+: si se define una variable "utils" en el codigo, el import queda opacado
 
 * Paquetes + Imports
 
@@ -379,7 +379,7 @@ GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son difere
 
 .play -edit code/punteros.go
 
-- Simil a C++, pero sin utilizar el "->" para los metodos 😄
+- Para los structs y metodos, simil a C++, pero sin utilizar el "->" 😄
 
 * Defer ⏲️
 Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el final de la función.
