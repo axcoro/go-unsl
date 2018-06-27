@@ -12,7 +12,7 @@ Sebastian Salvatore 🧔🏻
 
 * Quienes Somos
 
-.image images/expertos2.png
+.image images/expertos2.png 590 470
 
 * Temas
 - Que es GO?
@@ -778,8 +778,8 @@ Hay muchos! pero para empezar 2 muy buenos y completos son:
 : es mejor la pagina en ingles por que esta mas actualizada
 - [[https://tour.golang.org][https://tour.golang.org]]
 
-Donde volver a ver esta presentacion?
+¿Donde volver a ver esta presentacion?
 
-- [[https://github.com/axcoro/go-unsl]]
+- [[https://github.com/axcoro/go-unsl][https://github.com/axcoro/go-unsl]]
 
 * ¿Preguntas⁉️
