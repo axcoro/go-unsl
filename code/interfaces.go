@@ -3,19 +3,19 @@ package main
 import "fmt"
 
 type Animal interface {
-	Decir()
+	HacerRuido()
 }
 
-func hacerHablar(a Animal) {
-	a.Decir()
+func hacerRuido(a Animal) {
+	a.HacerRuido()
 }
 
 type Pato struct{}
-func (p Pato) Decir() {
+func (p Pato) HacerRuido() {
 	fmt.Printf("cuack cuack!")
 }
 
 func main() {
 	p := Pato{}
-	hacerHablar(p)
+	hacerRuido(p)
 }

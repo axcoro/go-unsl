@@ -155,15 +155,20 @@ Es muy importante respetar el nombre/ruta dentro del $GOPATH,
 
 * Dependencias
 
-No esta libre de problemas:
+No esta libre de problemas 👊
 
 - Trae problemas para versionar el codigo
-- Go soporta "vendoring"
+- Cuando se hace go get se trae lo que esta en el _master_ del repo
+- Que pasa si cambia la firma de un metodo?
+- Que pasa con el codigo que lo uso?
+
+Solucion 👉 "vendoring"
 
 * Vendoring
 
-- Es como tener una foto del codigo de las dependencias en el GOPATH dentro del proyecto.
-- Primero se busca una dependencia en la carpeta vendor, luego en el GOPATH.
+: similar al node_modules de node.js
+- Es como tener una foto 📸 del codigo de las dependencias en el GOPATH dentro del proyecto.
+- Primero se busca una dependencia en la carpeta *vendor*, luego en el GOPATH.
 - Si se actualiza una version de una dependencia en el GOPATH, no rompe el codigo de mi proyecto
 - Herramientas para vendoring: govendor, dep, etc
 
@@ -356,20 +361,20 @@ GO tiene dos primitivas de asignación, las funciones *new* y *make*. Son difere
 - El identificador en blanco se puede asignar o declarar con cualquier valor.
 - Se usa mucho en el contexto de los bucles, para ignorar un error/valor o para forzar un import
 : Una variable no utilizada es un error de compilacion, por lo que es necesario ignorarla con _ sino la vamos a usar
-- Representa un valor de solo escritura para usar como marcador de posición donde se necesita una variable, pero el valor real es irrelevante.
+- Es un valor de escritura y es irrelevante el valor que se asigna porque se descarta
 
 .play -edit code/declaracion/blank_identifier.go
 
 * Punteros
-
-- Simil a C/C++, pero sin utilizar el "->" 😄
 
 : Un puntero es una variable que, apunta a algo, es decir, es una variable que almacena la dirección de memoria de otra variable.
 : Toda variable en ejecución se encuentra almacenada en un espacio de memoria y, a su vez, cada espacio de memoria tiene asignada una dirección; por ende, cada variable tiene asignada una dirección en memoria.
 
 .play -edit code/punteros.go
 
-* Defer
+- Simil a C++, pero sin utilizar el "->" para los metodos 😄
+
+* Defer ⏲️
 Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el final de la función.
 
 - Evita la repetición del código
@@ -390,7 +395,7 @@ Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el
         return true
     }
 
-* Uso del Defer
+* Uso del Defer ⏲️
     func ReadWrite() bool {
         file.Open("file")
         defer file.Close()
@@ -406,7 +411,7 @@ Son declaraciones que se ejecutan en orden inverso cuando el programa ejecuta el
 
 .play code/defer.go
 
-* Structs
+* Structs 🏢
 Nuevos tipos de contenedores con otras propiedades o campos.
 Asignando un valor inicial en forma ordenada
 
@@ -418,11 +423,12 @@ Definimos una struct anónima, y la inicializamos
 
   P := struct{nombre string; edad int}{"Seba",25}
 
-* Structs
+* Structs 🏢
 .play code/structs.go
 
-* Structs embebidos
-Son campos sin nombre pero si con tipo. Hace una "reutilizacion" de los campos
+* Structs embebidos 🏘️
+- Son campos sin nombre pero si con tipo.
+- Sirve para "reutilizar" de los campos de otro struct
 
     type Persona struct {
         nombre string
@@ -484,7 +490,7 @@ La función y el struct son dos cosas independientes.
 * Metodos y Receptores
 - Los métodos están relacionados a un tipo.
 - Tienen la misma sintaxis que una función pero se le añade un  *receptor* (receiver) que es el cuerpo principal de ese método.
-- "Un método es una función con un primer argumento implícito, llamado receiver."
+- "Un método es una función con un primer argumento implícito, llamado receptor."
 
 	type Rectangulo struct { ... }
 
@@ -493,6 +499,7 @@ La función y el struct son dos cosas independientes.
 	}
 
 : Dicho mal y pronto, lo que estamos definiendo aca es una funcion para un unico tipo
+: Si el receptor es un puntero, se pueden modificar los datos del mismo, sino, no
 
 	...
 	r1 := Rectangulo{}
@@ -519,7 +526,6 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 
 - sql.Register : Sirve para regristrar una base de datos.
 
-	//manejador https://github.com/mattn/go-sqlite3
 	import (
 		"database/sql"
 		_ "github.com/mattn/go-sqlite3"
@@ -538,6 +544,8 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 
 .play -edit code/concurrency_1.go
 
+: Cuando termina la gorutina principal, la del main, terminan todas las gorutinas hijas
+
 * Concurrencia
 
 .play -edit code/concurrency_2.go
@@ -550,7 +558,7 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 : cuando se llena y otro quiere publicar se bloquea hasta que se haga lugar
 - Los channels tienen "direcciones"
 : Es decir, que se puede especificar si se pueden meter/sacar datos de un canal
-: Sirve para reforzar el uso que se le va a dar al canal, se usa en
+: Sirve para reforzar el uso que se le va a dar al canal, se usa en parametros mas que nada
 - Entrada + Salida:
 	Declaracion: c chan int | Uso: d := <-c o c <- d
 - Entrada:
@@ -565,9 +573,10 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 
 * Concurrencia + Channels + select
 
-.play -edit code/select.go /START OMIT/,/END OMIT/
+.play -edit code/select.go
 : que pasa si al worker le paso mas de un chan y depdendiendo de a cual le llega un dato algo algo?
 : en el ejemplo hay un unico case, pero podria haber mas cases escuchando mas channels
+: hay 5 workers y solo 3 datos, ejecutar varias veces!
 
 * Concurrencia: errores comunes
 
@@ -588,7 +597,7 @@ Es un estandar que permite crear orm de base de datos a traves de ella, permitie
 - Pipeline
 : Simil a promises, hacer que una funcion retorne un channel, dentro una gorutina resuelve algo y retorna el resultado en el channel
 - Fan-in
-: Multiples productores publican datos en un channel, un solo consumidr opera sobre esos datos
+: Multiples productores publican datos en un channel, un solo consumidor opera sobre esos datos
 - Fan-out
 : Un unico productor, multiples consumidores (workers)
 
@@ -693,7 +702,7 @@ que analizaremos con list <func>
 
 .image images/profiling/profiling6.png
 
-Podemos ver que la liena 27, compilar la expresion regular se demora 5.87s
+Podemos ver que la linea 27, compilar la expresion regular se demora 5.87s
 No es necesario que se ejecute en cada iteracion asi que sacarla afuera del for para que
 compile una vez y luego se use en cada iteracion.
 
@@ -754,4 +763,4 @@ Hay muchos! pero para empezar 2 muy buenos y completos son:
 - [[https://gobyexample.com][https://gobyexample.com]]
 - [[https://tour.golang.org][https://tour.golang.org]]
 
-* ¿Preguntas?
+* ¿Preguntas⁉️
