@@ -239,6 +239,7 @@ Declaracion multiple/multi-linea:
 : Cada carpeta es un paquete y no importa como se llamen los archivos, el codigo se considera que esta "junto"
 : Muy diferente a java esto por ej
 : La unica salvedad son los archivos *_test.go que su codigo no es visible para el resto
+: paquete.NombreExportado
 
 * Imports
 
